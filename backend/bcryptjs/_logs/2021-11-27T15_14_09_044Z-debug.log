@@ -1,0 +1,47 @@
+0 verbose cli [
+0 verbose cli   '/usr/local/bin/node',
+0 verbose cli   '/usr/local/bin/npm',
+0 verbose cli   'uninstall',
+0 verbose cli   '--cache',
+0 verbose cli   'bcryptjs'
+0 verbose cli ]
+1 info using npm@8.1.0
+2 info using node@v16.13.0
+3 timing npm:load:whichnode Completed in 0ms
+4 timing config:load:defaults Completed in 1ms
+5 timing config:load:file:/usr/local/lib/node_modules/npm/npmrc Completed in 0ms
+6 timing config:load:builtin Completed in 0ms
+7 timing config:load:cli Completed in 1ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:file:/Users/macfb/Desktop/Web-Developer-P6/backend/.npmrc Completed in 0ms
+10 timing config:load:project Completed in 1ms
+11 timing config:load:file:/Users/macfb/.npmrc Completed in 0ms
+12 timing config:load:user Completed in 0ms
+13 timing config:load:file:/usr/local/etc/npmrc Completed in 0ms
+14 timing config:load:global Completed in 0ms
+15 timing config:load:validate Completed in 0ms
+16 timing config:load:credentials Completed in 1ms
+17 timing config:load:setEnvs Completed in 0ms
+18 timing config:load Completed in 4ms
+19 timing npm:load:configload Completed in 4ms
+20 timing npm:load:setTitle Completed in 4ms
+21 timing npm:load:setupLog Completed in 1ms
+22 timing config:load:flatten Completed in 1ms
+23 timing npm:load:cleanupLog Completed in 1ms
+24 timing npm:load:configScope Completed in 0ms
+25 timing npm:load:projectScope Completed in 0ms
+26 timing npm:load Completed in 11ms
+27 timing command:uninstall Completed in 1ms
+28 verbose stack Error: Must provide a package name to remove
+28 verbose stack     at Uninstall.uninstall (/usr/local/lib/node_modules/npm/lib/uninstall.js:47:15)
+28 verbose stack     at Uninstall.exec (/usr/local/lib/node_modules/npm/lib/uninstall.js:35:10)
+28 verbose stack     at Object.[_runCmd] (/usr/local/lib/node_modules/npm/lib/npm.js:166:12)
+28 verbose stack     at /usr/local/lib/node_modules/npm/lib/npm.js:24:35
+28 verbose stack     at module.exports (/usr/local/lib/node_modules/npm/lib/cli.js:74:5)
+29 verbose cwd /Users/macfb/Desktop/Web-Developer-P6/backend
+30 verbose Darwin 21.1.0
+31 verbose argv "/usr/local/bin/node" "/usr/local/bin/npm" "uninstall" "--cache" "bcryptjs"
+32 verbose node v16.13.0
+33 verbose npm  v8.1.0
+34 error Must provide a package name to remove
+35 verbose exit 1
