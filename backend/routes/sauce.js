@@ -1,11 +1,13 @@
-const express = require("express");
-const router = express.Router();
+import  express  from "express";
 
-const sauceCtrl = require("../controllers/sauces");
-const auth = require("../middleware/auth");
-const multer = require("../middleware/multer-config");
+import { createSauce,getAllSauces } from "../controllers/sauces.js";
 
-router.post("/", auth, multer, sauceCtrl.createSauce);
-router.get("/", auth, sauceCtrl.getAllSauces);
+import { auth } from "../middleware/auth.js";
 
-module.exports = router;
+import { Multer } from "../middleware/multer-config.js";
+
+const sauceRoutes = express.Router();
+sauceRoutes.post("/sauces", auth, Multer, createSauce);
+sauceRoutes.get("/sauces", auth, getAllSauces);
+
+export default sauceRoutes

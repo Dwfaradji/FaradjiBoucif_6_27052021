@@ -1,15 +1,23 @@
 // Va chercher le module express
-const express = require("express");
-const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-const path = require("path");
+import  express  from "express";
 
-const userRoutes = require("./routes/user");
-const sauceRoutes = require("./routes/sauce");
+import bodyParser  from "body-parser";
 
-const appli = express();
+import  mongoose  from "mongoose";
 
-appli.use(express.json());
+import path  from "path";
+
+import  userRoutes  from "./routes/user.js";
+
+import  sauceRoutes  from "./routes/sauce.js";
+
+import { dirname } from 'path';
+
+import { fileURLToPath } from 'url';
+
+export const appli = express();
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 //permet acceder à notre API depuis n'importe quelle origine
 appli.use((req, res, next) => {
@@ -25,26 +33,24 @@ appli.use((req, res, next) => {
   next();
 });
 
-//connection a mongooseDb
-function connectionBaseDeDonnée(params) {
-mongoose
-  .connect(
-    "mongodb+srv://boucif:Tlemcen-66@cluster0.wxji3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
-  .then(() => console.log("Connexion à MongoDB réussie !"))
-  .catch(() => console.log("Connexion à MongoDB échouée !"));
-}
-connectionBaseDeDonnée();
-
+// function connectionBaseDeDonnée() {
+  mongoose
+    .connect(
+      "mongodb+srv://boucif:Tlemcen-66@cluster0.wxji3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+      { useNewUrlParser: true, useUnifiedTopology: true }
+    )
+    .then(() => console.log("Connexion à MongoDB réussie !"))
+    .catch(() => console.log("Connexion à MongoDB échouée !"));
+// }
+// connectionBaseDeDonnée();
 
 appli.use(bodyParser.json());
 
-appli.use("/api/sauces", sauceRoutes);
-
 appli.use("/images", express.static(path.join(__dirname, "images")));
 
+appli.use("/api", sauceRoutes);
 appli.use("/api/auth/", userRoutes);
 
-//on va pouvoir exporter le module app
-module.exports = appli;
+
+
+

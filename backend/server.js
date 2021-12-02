@@ -1,17 +1,16 @@
-//ancien serveur
-// const http = require('http');
-// // Va chercher le fichier app
-// const appli = require('./app');
-// // fait tourner l'appli sur le port 3000
-// appli.set('port', process.env.PORT || 3000);
-// //creer un serveur pour appli
-// const server = http.createServer(appli);
-// //port a écouter
-// server.listen(process.env.PORT || 3000);
+// Crée un Programe qui va attendre notre requete http et y repondre
 
-const http = require("http");
-const app = require("./app");
+//Importer le package http node qui nous donnera accès a cet objet qui va nous permettre de crée un serveur
 
+//const http = require('http');
+import http  from "http";
+
+//Importer express
+//const app = require("./app");
+import { appli } from "./app.js";
+
+
+//La Fonction normalizePort renvoi un port valide, qu'il soit fourni sous la forme d'un numéro ou d'une chaine
 const normalizePort = (val) => {
   const port = parseInt(val, 10);
 
@@ -24,8 +23,9 @@ const normalizePort = (val) => {
   return false;
 };
 const port = normalizePort(process.env.PORT || "3000");
-app.set("port", port);
+appli.set("port", port);
 
+//La Fonction errorHandler recherche les erreurs et els gère de manière appropriée, ensuite elle est enregistrer dans le serveur
 const errorHandler = (error) => {
   if (error.syscall !== "listen") {
     throw error;
@@ -47,7 +47,7 @@ const errorHandler = (error) => {
   }
 };
 
-const server = http.createServer(app);
+const server = http.createServer(appli);
 
 server.on("error", errorHandler);
 server.on("listening", () => {

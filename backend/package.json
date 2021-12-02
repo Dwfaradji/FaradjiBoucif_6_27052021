@@ -22,5 +22,7 @@
     "multer": "^1.4.3",
     "run-script-os": "^1.0.7"
   },
-  "description": ""
+  "description": "",
+  "type":"module"
 }
+
