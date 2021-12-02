@@ -27,20 +27,60 @@ async function createSauce(req, res, next) {
   }
 }
 
+async function modifySauce(req, res, next) {
+  try {
+    await sauceModel.updateOne({ _id: req.params.id }, { ...req.body, _id: req.params.id });
+    res.status(200).json({ message: "Sauce modifié" });
+    return sauceModel;
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+}
+
+async function deleteSauce(req, res, next) {
+  try {
+    await sauceModel.deleteOne({ _id: req.params.id });
+    res.status(200).json({ message: "Sauce supprimé" });
+    return sauceModel;
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+}
+
+//==================Probleme try catch =================
+
+const getOneSauce = (req, res, next) => {
+  sauceModel
+    .findOne({ _id: req.params.id })
+    .then((sauce) => res.status(200).json(sauce))
+    .catch((error) => res.status(404).json({ error }));
+};
+
 const getAllSauces = (req, res, next) => {
   sauceModel
     .find()
-    .then((things) => res.status(200).json(things))
+    .then((sauces) => res.status(200).json(sauces))
     .catch((error) => res.status(400).json({ error }));
 };
-//----A voir pourquoi cela ne fonctionne pas 
-// async function getAllSauces(req, res, next) {
+
+// async function getOneSauce(req, res, next,sauce) {
 //   try {
-//     await sauceModel.find();
-//     res.status(200).json({ message: "Récupération des sauces enregistré" });
+//     await sauceModel.findOne({ _id: req.params.id });
+//     res.status(200).json();
+//     return sauceModel;
 //   } catch (error) {
 //     res.status(400).json({ error });
 //   }
 // }
 
-export { createSauce, getAllSauces };
+// async function getAllSauces(req, res, next) {
+//   try {
+//     await sauceModel.find(test);
+//     res.status(200).json({ message: "Récupération de toutes les sauces" });
+//     return;
+//   } catch (error) {
+//     res.status(400).json({ error });
+//   }
+// }
+
+export { createSauce, getAllSauces, getOneSauce, modifySauce, deleteSauce };
