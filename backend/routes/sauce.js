@@ -1,5 +1,4 @@
 import express from "express";
-
 import {
   createSauce,
   getAllSauces,
@@ -8,9 +7,7 @@ import {
   deleteSauce
   
 } from "../controllers/sauces.js";
-
 import { auth } from "../middleware/auth.js";
-
 import { Multer } from "../middleware/multer-config.js";
 
 const sauceRoutes = express.Router();
