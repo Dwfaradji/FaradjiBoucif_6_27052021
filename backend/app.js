@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import path from "path";
 import userRoutes from "./routes/user.js";
 import sauceRoutes from "./routes/sauce.js";
+
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -27,13 +28,16 @@ function accesSetHeader(params) {
     next();
   });
 }
-accesSetHeader()
+accesSetHeader();
 
 async function connectionBaseDeDonnée() {
   try {
     mongoose.connect(
       "mongodb+srv://boucif:Tlemcen-66@cluster0.wxji3.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-      { useNewUrlParser: true, useUnifiedTopology: true }
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
     );
     console.log("Connexion à MongoDB réussie !");
   } catch (e) {
