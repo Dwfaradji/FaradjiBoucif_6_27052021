@@ -1,6 +1,11 @@
 //Importer Mongoose
 import mongoose from "mongoose";
 
+async function controlShema() {
+  if (!sauceSchema) {
+    return res.status(400);
+  }
+}
 //Crée le schéma de donnée
 const sauceSchema = mongoose.Schema({
   name: { type: String, required: true },
@@ -16,6 +21,7 @@ const sauceSchema = mongoose.Schema({
   userId: { type: String, required: true },
 });
 
+controlShema();
 const modeleSauce = mongoose.model("Sauce", sauceSchema);
 
 export default modeleSauce;

@@ -47,6 +47,16 @@ const errorHandler = (error) => {
   }
 };
 
+// Si le rejet d'une promesse n'est pas géré
+process.on("unhandledRejection", (reason, promise) => {
+  console.log(`Unhandled Rejection at: ${promise}\n` + `Reason: ${reason}`);
+});
+
+// Si une exception n'est ni attrapée ni traitée
+process.on("uncaughtException", (err, origin) => {
+  console.log(`Error: ${err}\n` + `Origin: ${origin}`);
+});
+
 const server = http.createServer(appli);
 
 server.on("error", errorHandler);
@@ -57,3 +67,5 @@ server.on("listening", () => {
 });
 
 server.listen(port);
+
+

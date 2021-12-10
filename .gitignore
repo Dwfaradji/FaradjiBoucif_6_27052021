@@ -1,2 +1,6 @@
 frontend
 node_modules
+images
+.env
+.vscode
+.idea

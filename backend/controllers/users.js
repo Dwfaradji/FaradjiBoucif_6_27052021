@@ -2,34 +2,39 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { user } from "../models/user.js";
 
-async function signup(req, res, next) {
+async function signup(req, res) {
+  if (!req.body.email,!req.body.password) {
+    return res.status(400)
+  }
   try {
-    const Hash = await bcrypt.hash(req.body.password, 10);
+    const passwordHash = await bcrypt.hash(req.body.password, 10);
     const userSave = new user({
       email: req.body.email,
-      password: Hash,
+      password: passwordHash,
     });
     await userSave.save();
     res.status(201).json({ message: "Utilisateur crée" });
   } catch (error) {
     res.status(500).json({ error });
-    res.status(400).json({ error });
   }
 }
 
-async function login(req, res, next) {
+async function login(req, res) {
+  if (!req.body.email,!req.body.password) {
+    return res.status(400)
+  }
   try {
-    const User = await user.findOne({ email: req.body.email });
-    if (!User) {
-      return res.status(401).json({ error: "Utilisateur non trouvé !" });
+    const userEmail = await user.findOne({ email: req.body.email });
+    if (!userEmail) {
+      return res.status(401).json({ error: "Utilisateur ou Mot de passe incorrect !" });
     }
-    const valid = await bcrypt.compare(req.body.password, User.password);
-    if (!valid) {
-      return res.status(401).json({ error: "Mot de passe incorrect !" });
+    const passwordValid = await bcrypt.compare(req.body.password, userEmail.password);
+    if (!passwordValid) {
+      return res.status(401).json({ error: "Utilisateur ou Mot de passe incorrect !" });
     } else {
       res.status(200).json({
-        userId: User._id,
-        token: jwt.sign({ userId: User._id }, "RAMDOM_TOKEN_SECRET", {
+        userId: userEmail._id,
+        token: jwt.sign({ userId: userEmail._id }, process.env.TOKEN_SECRET, {
           expiresIn: "24h",
         }),
       });
