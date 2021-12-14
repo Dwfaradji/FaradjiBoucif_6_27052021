@@ -2,10 +2,19 @@ import sauceModel from "../models/sauce.js";
 import fs from "fs";
 
 async function createSauce(req, res) {
-  // Contrôle des requêtes
-  if (!req.body.sauce) {
-    return res.status(400);
+  const tokenId = req.token.userId;
+  const userIdParse = JSON.parse(req.body.sauce);
+  const userId = userIdParse.userId;
+  //Contrôle des users
+  if (tokenId !== userId) {
+    return res.status(402);
   }
+
+  // Contrôle des requêtes
+  if (!req.body.sauce || !req.file.filename) {
+    return res.status(400).json({ error });
+  }
+
   const objetSauce = JSON.parse(req.body.sauce);
   delete objetSauce._id;
   const newSauce = new sauceModel({
@@ -31,11 +40,17 @@ async function createSauce(req, res) {
   }
 }
 
+
 async function modifySauce(req, res) {
-  //Contrôle des requêtes
-  if ((!req.body.sauce, !req.params.id)) {
-    return res.status(400);
+    //Contrôle des users
+  if (!req.token.userId) {
+    return res.status(403).json({ error });
   }
+
+  if (!req.body || !req.params) {
+    return res.status(400).json({ error });
+  }
+
   const sauceObjectModify = req.file
     ? {
         ...JSON.parse(req.body.sauce),
@@ -57,9 +72,14 @@ async function modifySauce(req, res) {
 }
 
 async function deleteSauce(req, res) {
+  //Controle userId
+  if (!req.token.userId) {
+    return res.status(403).json({ error });
+  }
+
   // Contrôle des requêtes
   if (!req.params.id) {
-    return res.status(400);
+    return res.status(400).json({ error });
   }
   try {
     const oneSauce = await sauceModel.findOne({ _id: req.params.id });
@@ -105,8 +125,8 @@ async function likeSauce(req, res) {
   const userId = likeBody.userId;
 
   // Contrôle des requêtes
-  if ((!sauceId, !likeBody)) {
-    return res.status(400);
+  if (!sauceId || !likeBody) {
+    return res.status(400).json({ error });
   }
 
   try {
