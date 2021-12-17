@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 
 const auth = (req, res, next) => {
   try {
-    const token = (req.headers.authorization || "").split(" ")[1]; //=== A voir pour le controle autorization ||
+    const token = (req.headers.authorization || "").split(" ")[1]; 
     req.token = jwt.verify(token, process.env.TOKEN_SECRET);
     const userId = req.token.userId;
     if (req.body.userId && req.body.userId !== userId) {

@@ -9,7 +9,7 @@ async function signup(req, res) {
     return res.status(400).json({ message: "Mot de passe invalide" });
   }
 
-  if ((!req.body.email || !req.body.password)) {
+  if (!req.body.email || !req.body.password) {
     return res.status(400);
   }
   try {
@@ -26,7 +26,7 @@ async function signup(req, res) {
 }
 
 async function login(req, res) {
-  if ((!req.body.email || !req.body.password)) {
+  if (!req.body.email || !req.body.password) {
     return res.status(400);
   }
   try {

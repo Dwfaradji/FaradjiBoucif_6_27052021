@@ -1,5 +1,6 @@
 import sauceModel from "../models/sauce.js";
 import fs from "fs";
+const error = "message error";
 
 async function createSauce(req, res) {
   const tokenId = req.token.userId;
@@ -7,7 +8,7 @@ async function createSauce(req, res) {
   const userId = userIdParse.userId;
   //Contrôle des users
   if (tokenId !== userId) {
-    return res.status(402);
+    return res.status(403);
   }
 
   // Contrôle des requêtes
@@ -40,9 +41,8 @@ async function createSauce(req, res) {
   }
 }
 
-
 async function modifySauce(req, res) {
-    //Contrôle des users
+  //Contrôle des users
   if (!req.token.userId) {
     return res.status(403).json({ error });
   }
