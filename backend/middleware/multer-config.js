@@ -16,7 +16,7 @@ const storage = multerFile.diskStorage({
     callback(null, name + Date.now() + "." + extension);
     //===== contrôle extension images
     if (!extension) {
-      return res.status(400);
+      return res.status(400).json({error:"error"});
     }
   },
 });
